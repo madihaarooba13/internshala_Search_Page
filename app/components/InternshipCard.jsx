@@ -12,12 +12,32 @@ import {
 
 import { BsCashStack } from "react-icons/bs";
 
-export default function InternshipCard({ internship }) {
+export default function InternshipCard({
+  internship,
+  onClick,
+}) {
   const [logoError, setLogoError] = useState(false);
+  
 
   return (
-    <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 mb-5">
-
+<div
+  onClick={onClick}
+  className="
+    bg-white
+    border
+    border-gray-200
+    rounded-2xl
+    p-6
+    shadow-sm
+    mb-5
+    cursor-pointer
+    transition-all
+    duration-300
+    hover:shadow-xl
+    hover:-translate-y-1
+    hover:scale-[1.01]
+  "
+>
       {/* Header */}
       <div className="flex justify-between items-start">
 
@@ -198,7 +218,8 @@ export default function InternshipCard({ internship }) {
         )}
 
       </div>
-
+        
     </div>
+    
   );
 }
