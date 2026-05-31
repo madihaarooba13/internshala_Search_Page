@@ -17,6 +17,7 @@ export default function Home() {
   const [location, setLocation] = useState("");
   const [salary, setSalary] = useState(0);
   const [duration, setDuration] = useState("");
+  const [showFilters, setShowFilters] = useState(false);
 
   const [workFromHome, setWorkFromHome] =
     useState(false);
@@ -123,7 +124,7 @@ export default function Home() {
 
       <main className="bg-[#f8f8f8] min-h-screen">
 
-        <div className="max-w-[1250px] mx-auto px-4 py-8">
+        <div className="max-w-[1250px] mx-auto px-4 py-4 md:py-8">
 
           {/* Breadcrumb */}
           <div className="text-gray-500 text-sm mb-8">
@@ -133,7 +134,7 @@ export default function Home() {
           {/* Heading */}
           <div className="text-center mb-10">
 
-            <h1 className="text-[42px] font-semibold text-gray-800">
+            <h1 className="text-[28px] md:text-[42px] font-semibold text-gray-800">
               {finalInternships.length} Internships
             </h1>
 
@@ -142,13 +143,34 @@ export default function Home() {
             </p>
 
           </div>
+          <div className="lg:hidden mb-4">
+  <button
+  onClick={() => setShowFilters(true)}
+  className="
+    w-full
+    bg-white
+    border
+    border-gray-200
+    rounded-lg
+    py-3
+    flex
+    items-center
+    justify-center
+    gap-2
+    font-medium
+  "
+>
+  <FiFilter />
+  Filters
+</button>
+</div>
 
-          <div className="grid grid-cols-12 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
             {/* Left Sidebar */}
-            <div className="col-span-3">
+            <div className="hidden lg:block lg:col-span-3">
 
-              <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm sticky top-24">
+              <div className="bg-white border border-gray-200 rounded-xl p-4 md:p-6 shadow-sm lg:sticky lg:top-24">
 
                 <h2 className="flex items-center justify-center gap-2 text-[20px] font-semibold mb-8">
 
@@ -392,7 +414,7 @@ export default function Home() {
             </div>
 
             {/* Right Side */}
-            <div className="col-span-9">
+            <div className="col-span-1 lg:col-span-9 w-full min-w-0">
 
               {/* Sort */}
               <div className="flex justify-end mb-5">
@@ -454,13 +476,248 @@ export default function Home() {
           </div>
 
         </div>
+        {showFilters && (
+  <div className="fixed inset-0 bg-black/40 z-[9998] lg:hidden mt-3">
+
+    <div className="bg-white w-full h-full overflow-y-auto">
+
+      <div className="relative p-4 border-b">
+
+  <h2 className="text-lg font-semibold text-center">
+    Filters
+  </h2>
+
+  <button
+    onClick={() => setShowFilters(false)}
+    className="absolute right-4 top-1/2 -translate-y-1/2 text-2xl text-gray-500"
+  >
+    ×
+  </button>
+
+</div>
+
+      <div className="p-4">
+
+        {/* Profile */}
+        <label className="block mb-2">
+          Profile
+        </label>
+
+        <input
+          type="text"
+          value={profile}
+          onChange={(e) =>
+            setProfile(e.target.value)
+          }
+          placeholder="e.g. Marketing"
+          className="w-full border rounded p-3 mb-4"
+        />
+
+        {/* Location */}
+        <label className="block mb-2">
+          Location
+        </label>
+
+        <input
+          type="text"
+          value={location}
+          onChange={(e) =>
+            setLocation(e.target.value)
+          }
+          placeholder="e.g. Delhi"
+          className="w-full border rounded p-3 mb-4"
+        />
+
+        {/* WFH */}
+        <label className="flex gap-2 mb-3">
+          <input
+            type="checkbox"
+            checked={workFromHome}
+            onChange={() =>
+              setWorkFromHome(!workFromHome)
+            }
+          />
+          Work from home
+        </label>
+
+        {/* Part Time */}
+        <label className="flex gap-2 mb-4">
+          <input
+            type="checkbox"
+            checked={partTime}
+            onChange={() =>
+              setPartTime(!partTime)
+            }
+          />
+          Part-time
+        </label>
+
+        {/* Salary */}
+        <label className="block mb-2">
+          Annual salary (in lakhs)
+        </label>
+
+        <input
+          type="range"
+          min="0"
+          max="10"
+          value={salary}
+          onChange={(e) =>
+            setSalary(Number(e.target.value))
+          }
+          className="w-full mb-4"
+        />
+
+        {/* Duration */}
+        <label className="block mb-2">
+          Duration
+        </label>
+
+        <select
+          value={duration}
+          onChange={(e) =>
+            setDuration(e.target.value)
+          }
+          className="w-full border rounded p-3 mb-4"
+        >
+          <option value="">
+            Any Duration
+          </option>
+          <option value="1 Month">
+            1 Month
+          </option>
+          <option value="2 Months">
+            2 Months
+          </option>
+          <option value="3 Months">
+            3 Months
+          </option>
+          <option value="4 Months">
+            4 Months
+          </option>
+          <option value="6 Months">
+            6 Months
+          </option>
+          <option value="12 Months">
+            12 Months
+          </option>
+        </select>
+
+        {/* Experience */}
+        <label className="block mb-2">
+          Years of experience
+        </label>
+
+        <select
+          className="w-full border rounded p-3 mb-6"
+        >
+          <option>
+            Select years of experience
+          </option>
+          <option>0 Year</option>
+          <option>1 Year</option>
+          <option>2 Years</option>
+          <option>3 Years</option>
+        </select>
+
+        <div className="flex gap-3">
+
+          <button
+            onClick={() => {
+              setProfile("");
+              setLocation("");
+              setSalary(0);
+              setWorkFromHome(false);
+              setPartTime(false);
+              setDuration("");
+            }}
+            className="flex-1 border rounded py-3"
+          >
+            Clear All
+          </button>
+
+          <button
+            onClick={() =>
+              setShowFilters(false)
+            }
+            className="flex-1 bg-[#00A5EC] text-white rounded py-3"
+          >
+            Apply
+          </button>
+          
+
+        </div>
+        {/* Search Section */}
+
+<div className="mt-8">
+
+  <div className="flex items-center mb-6">
+
+    <div className="flex-1 border-t border-gray-300"></div>
+
+    <span className="px-4 text-gray-500 text-sm">
+      OR
+    </span>
+
+    <div className="flex-1 border-t border-gray-300"></div>
+
+  </div>
+
+  <h3 className="text-center text-[18px] font-semibold text-[#333] mb-4">
+    Search
+  </h3>
+
+  <div className="flex">
+
+    <input
+      type="text"
+      placeholder="e.g. Design, Mumbai, Infosys"
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      className="
+        flex-1
+        h-[48px]
+        px-4
+        border
+        border-[#d6d6d6]
+        rounded-l
+        text-[14px]
+        outline-none
+      "
+    />
+
+    <button
+      className="
+        w-[52px]
+        h-[48px]
+        bg-[#00A5EC]
+        rounded-r
+        flex
+        items-center
+        justify-center
+        text-white
+      "
+    >
+      🔍
+    </button>
+
+  </div>
+
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+)}
 {selectedInternship && (
   <div
     className="fixed inset-0 bg-black/50 z-[9999] flex items-center justify-center p-4"
     onClick={() => setSelectedInternship(null)}
   >
     <div
-      className="bg-white w-full max-w-[850px] rounded-lg max-h-[90vh] overflow-y-auto no-scrollbar"
+      className="bg-white w-full max-w-[850px] rounded-lg max-h-[90vh] overflow-y-auto no-scrollbar mx-2"
       onClick={(e) => e.stopPropagation()}
     >
       {/* Header */}
@@ -483,7 +740,7 @@ export default function Home() {
 <div className=" p-8">
 
   {/* TOP */}
-  <div className="flex justify-between items-start">
+  <div className="flex flex-col md:flex-row justify-between items-start gap-4">
 
     <div>
 
@@ -562,7 +819,7 @@ export default function Home() {
 
   {/* TAGS + APPLY */}
 
-  <div className="mt-10 flex justify-between items-center">
+  <div className="mt-10 flex flex-col md:flex-row gap-4 justify-between md:items-center">
 
     <div className="flex gap-3 flex-wrap">
 
@@ -589,7 +846,7 @@ export default function Home() {
 
     </div>
 
-    <button className="bg-[#00A5EC] hover:bg-[#0096d6] text-white px-8 py-3 rounded font-semibold">
+    <button className="bg-[#00A5EC] hover:bg-[#0096d6] text-white px-8 py-3 rounded font-semibold w-full md:w-auto">
       Apply now
     </button>
 
@@ -601,7 +858,7 @@ export default function Home() {
 
 
 
-<div className="px-8 py-6">
+<div className="px-4 md:px-8 py-6">
 
   <div className="flex items-center gap-3 mb-6">
 
