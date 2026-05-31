@@ -16,6 +16,7 @@ export default function Home() {
   const [profile, setProfile] = useState("");
   const [location, setLocation] = useState("");
   const [salary, setSalary] = useState(0);
+  const [duration, setDuration] = useState("");
 
   const [workFromHome, setWorkFromHome] =
     useState(false);
@@ -58,6 +59,9 @@ export default function Home() {
 
       const matchesWFH =
         !workFromHome || item.work_from_home;
+        const matchesDuration =
+  !duration ||
+  item.duration === duration;
 
       const matchesPartTime =
         !partTime || item.part_time;
@@ -75,14 +79,15 @@ export default function Home() {
     .toLowerCase()
     .includes(search.toLowerCase());
 
-      return (
-        matchesProfile &&
-        matchesLocation &&
-        matchesSalary &&
-        matchesWFH &&
-        matchesSearch &&
-        matchesPartTime
-      );
+     return (
+  matchesProfile &&
+  matchesLocation &&
+  matchesSalary &&
+  matchesWFH &&
+  matchesSearch &&
+  matchesPartTime &&
+  matchesDuration
+);
     }
   );
 
@@ -248,6 +253,34 @@ export default function Home() {
 
                 <div className="text-right mt-8">
 
+<label className="block text-[15px] font-normal text-[#060505] mb-3 mt-8 text-left">
+  Duration
+</label>
+
+<select
+  value={duration}
+  onChange={(e) => setDuration(e.target.value)}
+  className="
+    w-full
+    h-[45px]
+    px-4
+    text-[16px]
+    text-[#666]
+    bg-white
+    border
+    border-[#d6d6d6]
+    rounded
+    outline-none
+  "
+>
+  <option value="">Any Duration</option>
+  <option value="1 Month">1 Month</option>
+  <option value="2 Months">2 Months</option>
+  <option value="3 Months">3 Months</option>
+  <option value="4 Months">4 Months</option>
+  <option value="6 Months">6 Months</option>
+  <option value="12 Months">12 Months</option>
+</select>
                  
                     <label className="block text-[15px] font-normal text-[#060505] mb-3 mt-8 text-left">
   Years of experience
@@ -283,6 +316,7 @@ export default function Home() {
                       setSalary(0);
                       setWorkFromHome(false);
                       setPartTime(false);
+                      setDuration("");
                     }}
                     className="text-blue-600"
                   >
